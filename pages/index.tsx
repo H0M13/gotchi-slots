@@ -1,7 +1,9 @@
-import React from 'react';
-import { Layout } from 'components/sections/layout';
-import { styled } from 'theme';
-import { Panel } from 'components/ui';
+import React from "react";
+import { Layout } from "components/sections/layout";
+import { styled } from "theme";
+import { Panel } from "components/ui";
+import { GotchiSVG } from "components/ui";
+import { useAavegotchi } from "context/AavegotchiContext";
 
 const Grid = styled.section`
   display: grid;
@@ -14,7 +16,7 @@ const Grid = styled.section`
   @media ${({ theme }) => theme.mediaQueries.laptopL} {
     grid-template-columns: repeat(3, 1fr);
   }
-`
+`;
 
 const Card = styled.a`
   display: block;
@@ -30,35 +32,66 @@ const Card = styled.a`
   p {
     margin: 0;
   }
+`;
+
+const GotchiContainer = styled.div`
+  width: 300px;
 `
 
 const Home = () => {
+  const {
+    state: { usersAavegotchis, networkId, selectedAavegotchiIndex },
+  } = useAavegotchi();
+
   return (
     <Layout>
-      <Panel>
+      {/* <Panel>
         <h1>Aavegotchi Moralis Next.js</h1>
-        <p>Get started by editing <b>pages/index.tsx</b>.</p>
+        <p>
+          Get started by editing <b>pages/index.tsx</b>.
+        </p>
         <Grid>
-          <Card href="https://nextjs.org/docs/basic-features/pages" target="_blank">
+          <Card
+            href="https://nextjs.org/docs/basic-features/pages"
+            target="_blank"
+          >
             <h3>Next.js Documentation</h3>
             <p>Find in-depth information about Next.js features and API.</p>
           </Card>
           <Card href="https://docs.moralis.io/" target="_blank">
             <h3>Moralis Documentation</h3>
-            <p>Learn about Moralis' suite of features for easy web3 integration.</p>
+            <p>
+              Learn about Moralis' suite of features for easy web3 integration.
+            </p>
           </Card>
-          <Card href="https://docs.aavegotchi.com/diamond-facets/aavegotchifacet.sol" target="_blank">
+          <Card
+            href="https://docs.aavegotchi.com/diamond-facets/aavegotchifacet.sol"
+            target="_blank"
+          >
             <h3>Aavegotchi Diamond</h3>
-            <p>Search the Aavegotchi dev wiki for the various contract methods.</p>
+            <p>
+              Search the Aavegotchi dev wiki for the various contract methods.
+            </p>
           </Card>
           <Card href="https://styled-components.com/" target="_blank">
             <h3>Styled components</h3>
-            <p>Learn about the CSS-in-JS tool that bridges the gap between components and styling.</p>
+            <p>
+              Learn about the CSS-in-JS tool that bridges the gap between
+              components and styling.
+            </p>
           </Card>
         </Grid>
-      </Panel>
+      </Panel> */}
+      {usersAavegotchis && (
+        <GotchiContainer>
+          <GotchiSVG
+            tokenId={usersAavegotchis[selectedAavegotchiIndex].id}
+            options={{ removeBg: true, animate: true }}
+          />
+        </GotchiContainer>
+      )}
     </Layout>
-  )
-}
+  );
+};
 
 export default Home;
