@@ -4,6 +4,26 @@ import { styled } from "theme";
 import { Panel } from "components/ui";
 import { GotchiSVG } from "components/ui";
 import { useAavegotchi } from "context/AavegotchiContext";
+import {
+  RoflCommon,
+  RoflUncommon,
+  RoflRare,
+  RoflLegendary,
+  RoflMythical,
+  RoflGodlike,
+  Coconut,
+  Diamond,
+  EthCoin,
+  Fireball,
+  GhstToken,
+  Kinship,
+  KinshipGreater,
+  Xp,
+  XpGreater,
+  Martini,
+  Milkshake,
+  Sushi,
+} from "components/ui/slotsIcons";
 
 const Grid = styled.section`
   display: grid;
@@ -36,7 +56,7 @@ const Card = styled.a`
 
 const GotchiContainer = styled.div`
   width: 300px;
-`
+`;
 
 const Home = () => {
   const {
@@ -90,6 +110,24 @@ const Home = () => {
           />
         </GotchiContainer>
       )}
+      <RoflCommon height={60} />
+      <RoflUncommon height={60} />
+      <RoflRare height={60} />
+      <RoflLegendary height={60} />
+      <RoflMythical height={60} />
+      <RoflGodlike height={60} />
+      <Coconut height={60} />
+      <Diamond height={60} />
+      <EthCoin height={60} />
+      <Fireball height={60} />
+      <GhstToken height={60} />
+      <Kinship height={60} />
+      <KinshipGreater height={60} />
+      <Xp height={60} />
+      <XpGreater height={60} />
+      <Martini height={60} />
+      <Milkshake height={60} />
+      <Sushi height={60} />
     </Layout>
   );
 };
