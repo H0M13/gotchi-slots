@@ -21,6 +21,10 @@ export type Action =
       networkId: State["networkId"];
     }
   | {
+      type: "SET_REQUEST_ID";
+      requestId: State["requestId"];
+    }
+  | {
       type: "END_ASYNC";
     }
   | {
@@ -66,6 +70,12 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         networkId: action.networkId,
+      };
+    }
+    case "SET_REQUEST_ID": {
+      return {
+        ...state,
+        requestId: action.requestId,
       };
     }
     case "UPDATE_AAVEGOTCHI_SVG": {
