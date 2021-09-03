@@ -6,6 +6,7 @@ export interface State {
   loading: boolean;
   error?: Error;
   networkId?: number;
+  requestId?: string;
 }
 
 export const initialState: State = {
