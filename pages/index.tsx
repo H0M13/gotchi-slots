@@ -56,6 +56,14 @@ const Card = styled.a`
   }
 `;
 
+const Tree = styled.div`
+  background-image: url("/assets/tree.png"); 
+  height: 300px;
+  width: 300px;
+  background-size: 300px;
+  background-repeat: no-repeat;
+`
+
 const GotchiContainer = styled.div`
   width: 300px;
 `;
@@ -74,6 +82,7 @@ const Home = () => {
           <RequestRandomness />
         </Grid>
       </Panel>
+      <Tree />
       <FakeTokenBalance />
       <OddsDisplay />
       {usersAavegotchis && (
