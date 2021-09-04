@@ -25,7 +25,7 @@ import {
   Milkshake,
   Sushi,
 } from "components/ui/slotsIcons";
-import { FakeTokenBalance, AddFakeFunds, RequestRandomness, ExecuteSpins } from "components/sections"
+import { FakeTokenBalance, AddFakeFunds, RequestRandomness, ExecuteSpins, OddsDisplay } from "components/sections"
 
 const Grid = styled.section`
   display: grid;
@@ -70,12 +70,13 @@ const Home = () => {
       <SlotMachine />
       <Panel>
         <Grid>
-          <FakeTokenBalance />
           <AddFakeFunds />
           <RequestRandomness />
           <ExecuteSpins />
         </Grid>
       </Panel>
+      <FakeTokenBalance />
+      <OddsDisplay />
       {usersAavegotchis && (
         <GotchiContainer>
           <GotchiSVG

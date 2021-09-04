@@ -10,6 +10,7 @@ import {
 import { useMoralis } from "react-moralis";
 import { ErrorModal } from "components/ui";
 import Head from "next/head";
+import { useSlotsContractCall } from "actions/web3"
 
 interface Props {
   children: React.ReactNode;
@@ -30,7 +31,7 @@ export const Layout = ({ children, metadetails }: Props) => {
     logout,
   } = useMoralis();
   const {
-    state: { error },
+    state: { requestId, error },
     dispatch,
   } = useAavegotchi();
 
@@ -68,6 +69,28 @@ export const Layout = ({ children, metadetails }: Props) => {
       console.log(results.slice(-1)[0].attributes.requestId)
       updateLatestRequestId(dispatch, results.slice(-1)[0].attributes.requestId);
     }
+  }
+
+  useEffect(() => {
+    requestId 
+    && getSpinOutcome(requestId, 0)
+    && getSpinOutcome(requestId, 1)
+    && getSpinOutcome(requestId, 2)
+    && getSpinOutcome(requestId, 3)
+    && getSpinOutcome(requestId, 4)
+    && getSpinOutcome(requestId, 5)
+    && getSpinOutcome(requestId, 6)
+    && getSpinOutcome(requestId, 7)
+    && getSpinOutcome(requestId, 8)
+    && getSpinOutcome(requestId, 9)
+  }, [requestId])
+
+  const getSpinOutcome = async (requestId: string, spinIndex: number) => {
+    const res = await useSlotsContractCall<string>(web3, {
+      name: "requestIdToSpinOutcomes",
+      parameters: [requestId, spinIndex],
+    });
+    console.log(`spin ${spinIndex}: ${web3.utils.fromWei(res)}`);
   }
 
   // Listeners
