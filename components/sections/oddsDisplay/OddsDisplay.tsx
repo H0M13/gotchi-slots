@@ -28,6 +28,12 @@ const StyledCollateralsImg = styled.img`
   width: 50px;
 `;
 
+const StyledHeading = styled.h4`
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`
+
 export const OddsDisplay = ({ className = "" }: any) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
@@ -128,13 +134,15 @@ export const OddsDisplay = ({ className = "" }: any) => {
 
   return (
     <Container className={className}>
-      <h2>Gotchi collateral odds</h2>
       <ButtonsContainer>
         <Button onClick={handleLeftClick}>{"<<"}</Button>
         <Button onClick={handleRightClick}>{">>"}</Button>
       </ButtonsContainer>
       {renderCollaterals()}
       {renderOdds()}
+      <StyledHeading>Your gotchi's collateral type gives you different odds in the smart contract!</StyledHeading>
+      <StyledHeading>Check this table to see the odds you're playing with.</StyledHeading>
+      <StyledHeading>Note that the total payout remains the same (99.5%) for all collateral types.</StyledHeading>
     </Container>
   );
 };
