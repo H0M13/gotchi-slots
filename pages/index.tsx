@@ -136,6 +136,7 @@ const NameBox = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+  margin-bottom: 40px;
   box-sizing: border-box;box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
 `
 

@@ -17,7 +17,6 @@ export const Container = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQueries.laptop} {
-    padding: 6.4rem 3.2rem;
     max-width: ${({ theme }) => `${theme.grid.container.maxWidth.md}px`};
   }
 
