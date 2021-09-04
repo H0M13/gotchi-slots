@@ -9,7 +9,8 @@ const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
 
   body {
     font-family: ${({theme}) => theme.font.primary};
-    background: ${({theme}) => `linear-gradient(155deg, ${theme.colors.dark0} 0%, ${theme.colors.dark1} 40%, ${theme.colors.dark1} 50%, ${theme.colors.dark0} 100%)`};
+    background-image: url("/assets/phaantastic-grounds.png"); 
+    background-size: 2200px;
     height: 100%;
   }
 

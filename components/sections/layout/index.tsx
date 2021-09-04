@@ -103,7 +103,6 @@ export const Layout = ({ children, metadetails }: Props) => {
 
     const chainListener = Moralis.Web3.onChainChanged(() => {
       if (isWeb3Enabled) {
-        subscribeToMoralisEvent();
         updateNetworkId(dispatch, web3);
       }
     });
@@ -115,7 +114,17 @@ export const Layout = ({ children, metadetails }: Props) => {
     };
   }, []);
 
+  // Update network
+    useEffect(() => {
+      if (isWeb3Enabled) {
+        subscribeToMoralisEvent();
+      } else {
+        // unsub
+      }
+    }, [isWeb3Enabled]);
+
   const subscribeToMoralisEvent = async () => {
+    console.log("subbin'")
     let query = new Moralis.Query("RandomnessReceivedC");
     let subscription = await query.subscribe();
     subscription.on("create", onRandomnessReceived);

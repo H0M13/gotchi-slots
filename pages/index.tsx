@@ -25,7 +25,7 @@ import {
   Milkshake,
   Sushi,
 } from "components/ui/slotsIcons";
-import { FakeTokenBalance, AddFakeFunds, RequestRandomness, ExecuteSpins, OddsDisplay } from "components/sections"
+import { FakeTokenBalance, AddFakeFunds, RequestRandomness, OddsDisplay, JackpotBalance } from "components/sections"
 
 const Grid = styled.section`
   display: grid;
@@ -56,6 +56,14 @@ const Card = styled.a`
   }
 `;
 
+const Tree = styled.div`
+  background-image: url("/assets/tree.png"); 
+  height: 300px;
+  width: 300px;
+  background-size: 300px;
+  background-repeat: no-repeat;
+`
+
 const GotchiContainer = styled.div`
   width: 300px;
 `;
@@ -72,10 +80,11 @@ const Home = () => {
         <Grid>
           <AddFakeFunds />
           <RequestRandomness />
-          <ExecuteSpins />
         </Grid>
       </Panel>
+      <Tree />
       <FakeTokenBalance />
+      <JackpotBalance />
       <OddsDisplay />
       {usersAavegotchis && (
         <GotchiContainer>
