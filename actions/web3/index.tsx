@@ -11,6 +11,8 @@ type SlotsContractCallMethods =
       parameters: [string];
     }
   | { name: "addressToClaimedFakeTokensBool"; parameters: [string] }
+  | { name: "requestIdToRandomNumber", parameters: [string] }
+  | { name: "requestIdToProcessedBool", parameters: [string] }
   | { name: "requestIdToSpinOutcomes", parameters: [string, number] };
 
 type SlotsContractSendMethods =

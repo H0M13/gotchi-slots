@@ -25,7 +25,7 @@ import {
   Milkshake,
   Sushi,
 } from "components/ui/slotsIcons";
-import { FakeTokenBalance, AddFakeFunds, RequestRandomness, ExecuteSpins, OddsDisplay } from "components/sections"
+import { FakeTokenBalance, AddFakeFunds, RequestRandomness, OddsDisplay } from "components/sections"
 
 const Grid = styled.section`
   display: grid;
@@ -72,7 +72,6 @@ const Home = () => {
         <Grid>
           <AddFakeFunds />
           <RequestRandomness />
-          <ExecuteSpins />
         </Grid>
       </Panel>
       <FakeTokenBalance />
