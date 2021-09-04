@@ -32,8 +32,10 @@
   width: 100px;
   height: 300px;
   overflow: hidden;
-  background: #f5f0f0 url('./iconSheet.png') repeat-y;
+  background: #fcfcfc url('./iconSheet.png') repeat-y;
   background-size: 100px auto;
+	border-radius: 4px;
+	border: solid #2b1d0e 2px;
   will-change: backgroundPosition;
   transition: 0.3s background-position ease-in-out;
   padding: 0;
@@ -46,8 +48,8 @@
   padding: 2em;
   display: flex;
   transition: 0.3s transform;
-  // background-color: red;
   padding-right: 40px;
+	position: relative;
 }
 
 .app-wrap.winner-false {
@@ -66,9 +68,15 @@
   }
 }
 
+.handleContainer {
+	width: 100px;
+}
+
 .handleContainer button {
   background-color: transparent;
   border: none;
+	position: absolute;
+	right: 60px;
 }
 
 .handleContainer button:hover {

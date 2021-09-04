@@ -74,6 +74,21 @@ const GotchiContainer = styled.div`
   width: 300px;
 `;
 
+
+const Background = styled.div`
+  display: inline-block;
+  width: 600px;
+  height: 500px;
+  position: absolute;
+  z-index: -1;
+  top: 250px;
+  border-radius: 5px;
+  border: solid #2b1d0e 4px;
+  background: brown url('./wood2.png') repeat;
+  background-size: 300px;
+`;
+
+
 const MainGrid = styled.div`
   display: grid;
   align-items: center;
@@ -124,7 +139,10 @@ const Home = () => {
           </StyledGotchiContainer>
         )}
         <StyledBalance />
+        <AddFakeFunds />
+        <RequestRandomness />
         <StyledOdds />
+        <Background />
       </MainGrid>
       {/* <Panel>
         <Grid>
