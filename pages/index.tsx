@@ -70,12 +70,12 @@ const Home = () => {
       <SlotMachine />
       <Panel>
         <Grid>
-          <FakeTokenBalance />
           <AddFakeFunds />
           <RequestRandomness />
           <ExecuteSpins />
         </Grid>
       </Panel>
+      <FakeTokenBalance />
       <OddsDisplay />
       {usersAavegotchis && (
         <GotchiContainer>
