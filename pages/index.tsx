@@ -3,7 +3,7 @@ import { Layout } from "components/sections/layout";
 import { styled } from "theme";
 import { Panel } from "components/ui";
 import { GotchiSVG } from "components/ui";
-import SlotMachine from '../components/sections/Spinner/Spinner';
+import SlotMachine from '../components/sections/Spinner/SlotMachine';
 import { useAavegotchi } from "context/AavegotchiContext";
 import {
   RoflCommon,
