@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
   }
 
   h1 {
-    font-family: ${({theme}) => theme.font.secondary};
+    font-family: ${({theme}) => theme.font.primary};
     font-size: ${({ theme }): string => theme.font.h1.size};
     margin-bottom: 1rem;
     line-height: ${({ theme }): string => theme.font.h1.lineHeight};
@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
   }
 
   h2 {
-    font-family: ${({theme}) => theme.font.secondary};
+    font-family: ${({theme}) => theme.font.primary};
     font-size: ${({ theme }): string => theme.font.h2.size};
     margin-bottom: 1.2rem;
     line-height: ${({ theme }): string => theme.font.h2.lineHeight};
@@ -42,14 +42,14 @@ const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
   }
 
   h3, .h3 {
-    font-family: ${({theme}) => theme.font.secondary};
+    font-family: ${({theme}) => theme.font.primary};
     font-size: ${({ theme }): string => theme.font.h3.size};
     margin-bottom: 1rem;
     line-height: ${({ theme }): string => theme.font.h3.lineHeight};
     font-weight: ${({ theme }): number => theme.font.h3.weight};
   }
   h4 {
-    font-family: ${({theme}) => theme.font.secondary};
+    font-family: ${({theme}) => theme.font.primary};
     font-size: ${({ theme }): string => theme.font.h4.size};
     margin-bottom: 0.9rem;
     line-height: ${({ theme }): string => theme.font.h4.lineHeight};

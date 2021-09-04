@@ -114,6 +114,31 @@ const StyledTabPanel = styled(TabPanel)`
   min-width: 600px;
 `;
 
+const Name = styled.h1`
+font-style: italic;
+font-size: 8vw;
+background-color: #04B7BC;
+color: ${({ theme }) => theme.colors.primary};
+display: block;
+box-sizing: border-box;
+margin-bottom: 0;
+padding: .5em;
+&:nth-child(2) {
+  position: absolute;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: #04B7BC;
+  clip-path: inset(-1% -1% 50% -1%);
+}
+`
+
+const NameBox = styled.div`
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  box-sizing: border-box;box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+`
+
 const Home = () => {
   const {
     state: { usersAavegotchis, networkId, selectedAavegotchiIndex },
@@ -121,6 +146,10 @@ const Home = () => {
 
   return (
     <Layout>
+      <NameBox>
+      <Name>1 ARM BAANDIT</Name>
+      <Name>1 ARM BAANDIT</Name>
+      </NameBox>
       <MainGrid>
         <StyledJackpot />
         <StyledSlotMachine />
