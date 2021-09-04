@@ -7,3 +7,4 @@ export * from './fakeTokenBalance';
 export * from './addFakeFunds';
 export * from './requestRandomness';
 export * from './oddsDisplay';
+export * from "./jackpotBalance";

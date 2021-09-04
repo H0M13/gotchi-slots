@@ -21,6 +21,7 @@ export const FakeTokenBalance = () => {
   const [amount, setAmount] = useState<string>("0");
 
   const loadFakeTokensAmount = async () => {
+    if (!user || !web3) return;
     const userAcount = user.attributes.accounts[0];
     const res = await useSlotsContractCall<string>(web3, {
       name: "addressToFakeTokens",
@@ -29,8 +30,16 @@ export const FakeTokenBalance = () => {
     setAmount(res);
   };
 
+  useEffect(() => {
+    loadFakeTokensAmount();
+    const interval = setInterval(() => {
+      loadFakeTokensAmount();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [user, web3]);
+
   return (
-    <Container onClick={loadFakeTokensAmount}>
+    <Container>
       <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
       <Amount>{web3.utils.fromWei(amount)}</Amount>
     </Container>
