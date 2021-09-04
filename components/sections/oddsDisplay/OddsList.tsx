@@ -20,6 +20,27 @@ const Payout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 360px;
+`;
+
+const AmountContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Amount = styled.span`
+  font-size: 2rem;
+`;
+
+const Arrow = styled.span`
+    font-size: 2rem;
+`
+
+const Odds = styled.span`
+  font-size: 2.4rem;
+  text-decoration: underline;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const OddsList = ({
@@ -30,31 +51,58 @@ export const OddsList = ({
   odds100,
   oddsJackpot,
 }) => {
+
+    const toPercent = (amount: number) => `${Math.round((amount * 100) * 1000) / 1000}%`
+
   return (
     <Container>
       <Payout>
-        <span>1: </span>
-        <span>{odds1}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>1</Amount>
+        </AmountContainer>
+          <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(odds1)}</Odds>
       </Payout>
       <Payout>
-        <span>2: </span>
-        <span>{odds2}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>2</Amount>
+        </AmountContainer>
+        <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(odds2)}</Odds>
       </Payout>
       <Payout>
-        <span>5: </span>
-        <span>{odds5}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>5</Amount>
+        </AmountContainer>
+        <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(odds5)}</Odds>
       </Payout>
       <Payout>
-        <span>25: </span>
-        <span>{odds25}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>25</Amount>
+        </AmountContainer>
+        <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(odds25)}</Odds>
       </Payout>
       <Payout>
-        <span>100: </span>
-        <span>{odds100}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>100</Amount>
+        </AmountContainer>
+        <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(odds100)}</Odds>
       </Payout>
       <Payout>
-        <span>Jackpot: </span>
-        <span>{oddsJackpot}</span>
+        <AmountContainer>
+          <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
+          <Amount>Jackpot</Amount>
+        </AmountContainer>
+        <Arrow>{">>"}</Arrow>
+        <Odds>{toPercent(oddsJackpot)}</Odds>
       </Payout>
     </Container>
   );
