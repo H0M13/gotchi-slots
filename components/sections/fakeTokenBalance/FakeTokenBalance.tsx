@@ -15,7 +15,7 @@ const Amount = styled.span`
   color: #fff;
 `
 
-export const FakeTokenBalance = () => {
+export const FakeTokenBalance = ({ className = ""}: any) => {
   const { user, web3 } = useMoralis();
 
   const [amount, setAmount] = useState<string>("0");
@@ -39,7 +39,7 @@ export const FakeTokenBalance = () => {
   }, [user, web3]);
 
   return (
-    <Container>
+    <Container className={className}>
       <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
       <Amount>{web3.utils.fromWei(amount)}</Amount>
     </Container>

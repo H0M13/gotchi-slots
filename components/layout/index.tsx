@@ -4,6 +4,9 @@ export const Container = styled.div`
   margin: 0 auto;
   width: 100%;
   padding: 3.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media ${({ theme }) => theme.mediaQueries.phone} {
     max-width: ${({ theme }) => `${theme.grid.container.maxWidth.xs}px`};

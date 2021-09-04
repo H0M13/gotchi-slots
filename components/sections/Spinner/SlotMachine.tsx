@@ -88,7 +88,7 @@ const Spinner = ({id} : SpinnerProps) => {
   );
 };
 
-const SlotMachine = () => {
+const SlotMachine = ({ className = "" }: any) => {
   const [count, setCount] = useState(0);
   const results = [
     [2, 2, 2, 2, 2],
@@ -112,7 +112,7 @@ const SlotMachine = () => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <div className={`spinner-container`}>
         <Spinner id={0} />
         <Spinner id={1} />

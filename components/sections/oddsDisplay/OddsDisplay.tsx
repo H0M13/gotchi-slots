@@ -18,7 +18,7 @@ const ButtonsContainer = styled.div`
   width: 100%;
 `;
 
-export const OddsDisplay = () => {
+export const OddsDisplay = ({ className = ""}: any) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   const renderCollaterals = () => {
@@ -94,7 +94,7 @@ export const OddsDisplay = () => {
   };
 
   return (
-    <Container>
+    <Container className={className}>
       <h2>Gotchi collateral odds</h2>
       <ButtonsContainer>
         <Button onClick={handleLeftClick}>{"<<"}</Button>

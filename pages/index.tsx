@@ -3,7 +3,7 @@ import { Layout } from "components/sections/layout";
 import { styled } from "theme";
 import { Panel } from "components/ui";
 import { GotchiSVG } from "components/ui";
-import SlotMachine from '../components/sections/Spinner/SlotMachine';
+import SlotMachine from "../components/sections/Spinner/SlotMachine";
 import { useAavegotchi } from "context/AavegotchiContext";
 import {
   RoflCommon,
@@ -25,7 +25,13 @@ import {
   Milkshake,
   Sushi,
 } from "components/ui/slotsIcons";
-import { FakeTokenBalance, AddFakeFunds, RequestRandomness, OddsDisplay, JackpotBalance } from "components/sections"
+import {
+  FakeTokenBalance,
+  AddFakeFunds,
+  RequestRandomness,
+  OddsDisplay,
+  JackpotBalance,
+} from "components/sections";
 
 const Grid = styled.section`
   display: grid;
@@ -57,15 +63,53 @@ const Card = styled.a`
 `;
 
 const Tree = styled.div`
-  background-image: url("/assets/tree.png"); 
+  background-image: url("/assets/tree.png");
   height: 300px;
   width: 300px;
   background-size: 300px;
   background-repeat: no-repeat;
-`
+`;
 
 const GotchiContainer = styled.div`
   width: 300px;
+`;
+
+const MainGrid = styled.div`
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: max-content 80px;
+  grid-template-areas:
+    "jackpot handle ."
+    "spinner handle gotchi"
+    "odds odds balance";
+`;
+
+const StyledSlotMachine = styled(SlotMachine)`
+  grid-area: spinner;
+`;
+
+const StyledJackpot = styled(JackpotBalance)`
+  grid-area: jackpot;
+`;
+
+const StyledHandle = styled.div`
+  grid-area: handle;
+  background-color: green;
+  width: 80px;
+  height: 100%;
+`;
+
+const StyledGotchiContainer = styled(GotchiContainer)`
+  grid-area: gotchi;
+`;
+
+const StyledOdds = styled(OddsDisplay)`
+  grid-area: odds;
+`;
+
+const StyledBalance = styled(FakeTokenBalance)`
+  grid-area: balance;
 `;
 
 const Home = () => {
@@ -75,43 +119,28 @@ const Home = () => {
 
   return (
     <Layout>
-      <SlotMachine />
-      <Panel>
+      <MainGrid>
+        <StyledJackpot />
+        <StyledSlotMachine />
+        <StyledHandle />
+        {usersAavegotchis && (
+          <StyledGotchiContainer>
+            <GotchiSVG
+              tokenId={usersAavegotchis[selectedAavegotchiIndex].id}
+              options={{ removeBg: true, animate: true }}
+            />
+          </StyledGotchiContainer>
+        )}
+        <StyledBalance />
+        <StyledOdds />
+      </MainGrid>
+      {/* <Panel>
         <Grid>
           <AddFakeFunds />
           <RequestRandomness />
         </Grid>
       </Panel>
-      <Tree />
-      <FakeTokenBalance />
-      <JackpotBalance />
-      <OddsDisplay />
-      {usersAavegotchis && (
-        <GotchiContainer>
-          <GotchiSVG
-            tokenId={usersAavegotchis[selectedAavegotchiIndex].id}
-            options={{ removeBg: true, animate: true }}
-          />
-        </GotchiContainer>
-      )}
-      <RoflCommon height={60} />
-      <RoflUncommon height={60} />
-      <RoflRare height={60} />
-      <RoflLegendary height={60} />
-      <RoflMythical height={60} />
-      <RoflGodlike height={60} />
-      <Coconut height={60} />
-      <Diamond height={60} />
-      <EthCoin height={60} />
-      <Fireball height={60} />
-      <GhstToken height={60} />
-      <Kinship height={60} />
-      <KinshipGreater height={60} />
-      <Xp height={60} />
-      <XpGreater height={60} />
-      <Martini height={60} />
-      <Milkshake height={60} />
-      <Sushi height={60} />
+      <Tree /> */}
     </Layout>
   );
 };

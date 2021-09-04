@@ -3,6 +3,11 @@ import { useMoralis } from "react-moralis";
 import { useSlotsContractCall } from "actions/web3";
 import { styled } from "theme";
 
+const Flex = styled.div`
+    display: flex;
+    align-items: center;
+`
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -15,7 +20,11 @@ const Amount = styled.span`
   color: #fff;
 `;
 
-export const JackpotBalance = () => {
+const JackpotLabel = styled.span`
+    font-size: 2.5rem;
+`
+
+export const JackpotBalance = ({ className = ""}: any) => {
   const { user, web3 } = useMoralis();
 
   const [amount, setAmount] = useState<string>("0");
@@ -37,12 +46,12 @@ export const JackpotBalance = () => {
   }, [user, web3]);
 
   return (
-    <>
-      <h2>Jackpot</h2>
+    <Flex className={className}>
+      <JackpotLabel>Jackpot</JackpotLabel>
       <Container>
         <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
         <Amount>{web3.utils.fromWei(amount)}</Amount>
       </Container>
-    </>
+    </Flex>
   );
 };
