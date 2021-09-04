@@ -15,6 +15,8 @@ const RepeatButton = ({ onClick }) => (
 
 export interface SpinnerProps {
   id: number;
+  setSpinning : Function;
+  isLast: boolean;
 }
 
 const useInterval = (callback, delay) => {
@@ -38,9 +40,8 @@ const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
-const Spinner = ({ id }: SpinnerProps) => {
+const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
   const iconHeight = 100;
-  const [spinning, setSpinning] = useState(false);
   const [position, setPosition] = useState(100);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const multiplier = 1;
@@ -56,16 +57,15 @@ const Spinner = ({ id }: SpinnerProps) => {
   };
 
   const startSpin = (event) => {
-    if (!spinning) {
-      setSpinning(true);
-      const spinTime = calculateTime(event.detail);
-      setTimeRemaining(spinTime);
-    }
-  };
+    const spinTime = calculateTime(event.detail);
+    setTimeRemaining(spinTime);
+  }
 
-  const tick = () => {
-    if (timeRemaining <= 0) {
-      setSpinning(false);
+  const tick = () => {    
+    if (timeRemaining <= 0) { 
+      if (isLast) {
+        setSpinning(false); 
+      }
     } else {
       setPosition(position - speed);
       setTimeRemaining(timeRemaining - 100);
@@ -207,6 +207,9 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const [previousResult, setPreviousResult] = useState([1, 1, 1, 1, 1]);
 
+  const [triggerDown, setTriggerDown] = useState(false);
+  const [spinning, setSpinning] = useState(false);
+
   useEffect(() => {
     console.log("requestId has changed. Setting currentSpinIndex to 0");
     setCurrentSpinIndex(0);
@@ -240,16 +243,37 @@ const SlotMachine = ({ className = "" }: any) => {
 
   return (
     <div className={className}>
-      <div className={`spinner-container`}>
-        <Spinner id={0} />
-        <Spinner id={1} />
-        <Spinner id={2} />
-        <Spinner id={3} />
-        <Spinner id={4} />
-        <div className="gradient-fade"></div>
-      </div>
+      <div className={styles.spinnerContainer}>
+        <Spinner id={0} isLast={false} setSpinning={setSpinning} />
+        <Spinner id={1} isLast={false} setSpinning={setSpinning} />
+        <Spinner id={2} isLast={false} setSpinning={setSpinning} />
+        <Spinner id={3} isLast={false} setSpinning={setSpinning} />
+        <Spinner id={4} isLast={true} setSpinning={setSpinning} />
 
-      <RepeatButton onClick={() => spin()} />
+        <div className={styles.handleContainer}>
+
+          <button 
+            aria-label='Play again.' 
+            onMouseDown={() => setTriggerDown(true)}
+            onMouseUp={() => {
+              setTriggerDown(false)
+              spin()
+            }}
+          >
+            <div className={`${styles.slotTrigger} ${(triggerDown && !spinning) ? styles.pullDown : ''}`}>
+              <div className={styles.lever}>
+                  <div className={styles.pull}>
+                      <div className={styles.ball}></div>
+                      <div className={styles.stem}></div>
+                  </div>
+                  <div className={styles.cog1}></div>
+                  <div className={styles.cog2}></div>
+              </div>
+            </div>
+
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

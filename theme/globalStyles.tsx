@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components'
 import { theme } from "theme"
 
 const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
   html {
     font-size: 10px;
     min-height: 100vh;

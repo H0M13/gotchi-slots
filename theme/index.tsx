@@ -33,7 +33,7 @@ export const theme = {
   },
 
   font: {
-    primary: "helvetica, sans-serif",
+    primary: "'VT323', monospace",
     secondary: "helvetica, sane-serif",
     xl: {
       size: '6rem',
