@@ -11,7 +11,7 @@ const RepeatButton = ({onClick}) => (
 );
 
 export interface SpinnerProps {
-  inputTimer: number;
+  id: number;
 }
 
 const useInterval = (callback, delay) => {
@@ -25,6 +25,7 @@ const useInterval = (callback, delay) => {
   // Set up the interval.
   useEffect(() => {
     function saveCallback() {
+      // @ts-ignore
       savedCallback.current();
     }
     if (delay !== null) {

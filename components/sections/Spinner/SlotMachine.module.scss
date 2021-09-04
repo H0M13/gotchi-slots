@@ -24,7 +24,7 @@
   bottom: 10px;
   right: 20px; 
   cursor: pointer;
-  animation: 6s linear infinite spin;
+  animation: spin 6s infinite;
 }
 
 .icons { 
@@ -54,7 +54,7 @@
 }
 
 .app-wrap.winner-false {
-  animation: linear 1s spin;
+  animation: spin 1s linear;
 }
 
 .spinner-container::after {
