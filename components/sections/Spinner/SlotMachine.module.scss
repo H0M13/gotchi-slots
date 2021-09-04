@@ -7,6 +7,48 @@
   font-size: 100px;
 }
 
+.background {
+	display: inline-block;
+  width: 600px;
+  height: 350px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+	left: 0;
+  border-radius: 5px;
+  border: solid #2b1d0e 4px;
+  background: brown url('wood2.png') repeat;
+  background-size: 300px;
+}
+
+.metalBarLower {
+	display: inline-block;
+  width: 550px;
+  height: 5px;
+  position: absolute;
+  z-index: 2;
+  top: 120px;
+  left: 20px;
+  border-radius: 5px;
+  border: solid #4f3a3c 2px;
+  background: brown url('metal.png') repeat;
+  background-size: 300px;
+}
+
+.metalBarUpper {
+	display: inline-block;
+  width: 550px;
+  height: 5px;
+  position: absolute;
+  z-index: 2;
+  top: 220px;
+  left: 20px;
+  border-radius: 5px;
+  border: solid #4f3a3c 2px;
+  background: brown url('metal.png') repeat;
+  background-size: 300px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg)

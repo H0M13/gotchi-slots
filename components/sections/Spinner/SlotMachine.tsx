@@ -246,6 +246,11 @@ const SlotMachine = ({ className = "" }: any) => {
   return (
     <div className={className}>
       <div className={styles.spinnerContainer}>
+
+        <div className={styles.background}/>
+        <div className={styles.metalBarLower}/>
+        <div className={styles.metalBarUpper}/>
+
         <Spinner id={0} isLast={false} setSpinning={setSpinning} />
         <Spinner id={1} isLast={false} setSpinning={setSpinning} />
         <Spinner id={2} isLast={false} setSpinning={setSpinning} />
