@@ -16,6 +16,8 @@ import {
 import { Tabs, Tab, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
+import styles from "./app.module.scss";
+
 const Grid = styled.section`
   display: grid;
   gap: 3.2rem;
@@ -157,8 +159,8 @@ const Home = () => {
         <StyledOddsPayoutsContainer>
           <Tabs>
             <TabList>
-              <Tab>Payouts</Tab>
-              <Tab>Odds</Tab>
+              <Tab className={styles.tabTitle}>Payouts</Tab>
+              <Tab className={styles.tabTitle}>Odds</Tab>
             </TabList>
             <StyledTabPanel>
               <PayoutsDisplay />

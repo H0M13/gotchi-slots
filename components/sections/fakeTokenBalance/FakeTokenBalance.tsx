@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const Amount = styled.span`
   font-size: 3.5rem;
-  color: #fff;
+  color: #000;
 `
 
 export const FakeTokenBalance = ({ className = ""}: any) => {
