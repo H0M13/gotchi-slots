@@ -34,33 +34,33 @@ const useInterval = (callback, delay) => {
   }, [delay]);
 }
 
-const Spinner = ({inputTimer} : SpinnerProps) => {
+const Spinner = ({id} : SpinnerProps) => {
   const iconHeight = 100;
-
   const [spinning, setSpinning] = useState(false);
-
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(100);
   const [timeRemaining, setTimeRemaining] = useState(0);
-  
-  const [timer, setTimer] = useState(null);
-  const [start, setStart] = useState(0);
-
-  // const multiplier = Math.floor(Math.random()*(4-1)+1);
   const multiplier = 1;
   const speed = iconHeight * multiplier;
 
-  const startSpin = () => {
+  const calculateTime = (results) => {
+    const resultID = results.result[id];
+    const previousResultID = results.previousResult[id];
+    const padding = (id+1) * 1800;
+    const distance = resultID - previousResultID;
+    let spinTime = 100 * distance;
+    return padding + spinTime;
+  }
+
+  const startSpin = (event) => {
     if(!spinning) {
       setSpinning(true);
-      setTimeRemaining(inputTimer);
-      setStart(0);
-      setPosition(0);
+      const spinTime = calculateTime(event.detail);
+      setTimeRemaining(spinTime);
     }
   }
 
   const tick = () => {    
-    if (timeRemaining <= 0) {
-      setTimer(null);   
+    if (timeRemaining <= 0) { 
       setSpinning(false); 
     } else {
       setPosition(position - speed);
@@ -75,11 +75,9 @@ const Spinner = ({inputTimer} : SpinnerProps) => {
     }
   }, []);
 
-  
-  const newTimer = useInterval(() => {
+  useInterval(() => {
     tick()
   }, 100);
-
 
   return (
     <div 
@@ -90,20 +88,36 @@ const Spinner = ({inputTimer} : SpinnerProps) => {
 };
 
 const SlotMachine = () => {
+  const [count, setCount] = useState(0);
+  const results = [
+    [2, 2, 2, 2, 2],
+    [3, 3, 3, 3, 3],
+    [1, 2, 3, 4, 5],
+    [5, 4, 3, 2, 1],
+    [6, 6, 6, 6, 6],
+    [16, 4, 16, 4, 16]
+  ];
+
+  const [previousResult, setPreviousResult] = useState([1, 1, 1, 1, 1]);
+
   const spin = () => {
-    const event = document.createEvent('Event');
-    event.initEvent('spin', true, true);
+    const event = new CustomEvent('spin', { 'detail': {
+      previousResult: previousResult,
+      result: results[count],
+    } });
     window.dispatchEvent(event);
+    setCount((count + 1) % results.length);
+    setPreviousResult(results[count]);
   };
 
   return (
     <div>
       <div className={`spinner-container`}>
-        <Spinner inputTimer={1000} />
-        <Spinner inputTimer={1400} />
-        <Spinner inputTimer={2200} />
-        <Spinner inputTimer={3000} />
-        <Spinner inputTimer={4000} />
+        <Spinner id={0} />
+        <Spinner id={1} />
+        <Spinner id={2} />
+        <Spinner id={3} />
+        <Spinner id={4} />
         <div className="gradient-fade"></div>
       </div>
 
