@@ -207,9 +207,6 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const [previousResult, setPreviousResult] = useState([1, 1, 1, 1, 1]);
 
-  const [triggerDown, setTriggerDown] = useState(false);
-  const [spinning, setSpinning] = useState(false);
-
   useEffect(() => {
     console.log("requestId has changed. Setting currentSpinIndex to 0");
     setCurrentSpinIndex(0);
@@ -226,6 +223,8 @@ const SlotMachine = ({ className = "" }: any) => {
       return;
     }
 
+    setSpinning(true);
+
     const spinOutcome = await getSpinOutcome(requestId, currentSpinIndex);
 
     const spinResult = getRandomSpinResultForPayout(spinOutcome);
@@ -240,6 +239,9 @@ const SlotMachine = ({ className = "" }: any) => {
     setCurrentSpinIndex(currentSpinIndex + 1);
     setPreviousResult(spinResult);
   };
+
+  const [triggerDown, setTriggerDown] = useState(false);
+  const [spinning, setSpinning] = useState(false);
 
   return (
     <div className={className}>
