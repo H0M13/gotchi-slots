@@ -5,10 +5,12 @@ import slotsContractAbi from "abi/slotsContractABI.json";
 
 type DiamondCallMethods = { name: "getAavegotchiSvg"; parameters: [string] };
 
-type SlotsContractCallMethods = {
-  name: "addressToFakeTokens";
-  parameters: [string];
-};
+type SlotsContractCallMethods =
+  | {
+      name: "addressToFakeTokens";
+      parameters: [string];
+    }
+  | { name: "addressToClaimedFakeTokensBool"; parameters: [string] };
 
 type SlotsContractSendMethods =
   // Parameter is the address to mint tokens for
