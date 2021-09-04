@@ -114,6 +114,7 @@ const StyledOddsPayoutsContainer = styled.div`
 
 const StyledBalance = styled(FakeTokenBalance)`
   grid-area: balance;
+  align-self: baseline;
 `;
 
 const StyledTabPanel = styled(TabPanel)`
