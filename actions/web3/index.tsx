@@ -10,7 +10,8 @@ type SlotsContractCallMethods =
       name: "addressToFakeTokens";
       parameters: [string];
     }
-  | { name: "addressToClaimedFakeTokensBool"; parameters: [string] };
+  | { name: "addressToClaimedFakeTokensBool"; parameters: [string] }
+  | { name: "requestIdToSpinOutcomes", parameters: [string, number] };
 
 type SlotsContractSendMethods =
   // Parameter is the address to mint tokens for
