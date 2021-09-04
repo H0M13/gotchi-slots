@@ -92,40 +92,62 @@ const Spinner = ({ id }: SpinnerProps) => {
 };
 
 const SlotMachine = ({ className = "" }: any) => {
+
+  const getNumberInRangeExcept = (except: Array<number>) => {
+    const result = getRandomInt(1, 18);
+
+    if (!except.includes(result)) {
+      return result;
+    }
+
+    return getNumberInRangeExcept(except);
+  }
+
+  const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   const payout0Results = [
-    [1, 2, 3, 4, 5],
-    [5, 4, 3, 2, 1],
+    [0, 0, 0, 0, 0]
   ];
 
   const payout1Results = [
-    [1, 1, 1, 2, 3],
-    [2, 3, 1, 1, 1],
+    [1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1],
   ];
 
   const payout2Results = [
-    [5, 5, 5, 2, 3],
-    [2, 3, 5, 5, 5],
+    [5, 5, 5, 0, 0],
+    [0, 5, 5, 5, 0],
+    [0, 0, 5, 5, 5]
   ];
 
   const payout5Results = [
-    [9, 9, 9, 2, 3],
-    [2, 3, 9, 9, 9],
+    [9, 9, 9, 0, 0],
+    [0, 9, 9, 9, 0],
+    [0, 0, 9, 9, 9]
   ];
 
   const payout25Results = [
     [9, 9, 9, 9, 9],
-    [14, 14, 14, 2, 3],
-    [2, 3, 14, 14, 14],
-    [11, 11, 11, 2, 3],
-    [2, 3, 11, 11, 11],
+    [14, 14, 14, 0, 0],
+    [0, 14, 14, 14, 0],
+    [0, 0, 14, 14, 14],
+    [11, 11, 11, 0, 0],
+    [0, 11, 11, 11, 0],
+    [0, 0, 11, 11, 11]
   ];
 
   const payout100Results = [
     [14, 14, 14, 14, 14],
-    [11, 11, 11, 11, 3],
-    [2, 11, 11, 11, 11],
-    [2, 3, 16, 16, 16],
-    [16, 16, 16, 2, 3],
+    [11, 11, 11, 11, 0],
+    [0, 11, 11, 11, 11],
+    [16, 16, 16, 0, 0],
+    [0, 16, 16, 16, 0],
+    [0, 0, 16, 16, 16],
   ];
 
   const payoutJackpotResults = [[16, 16, 16, 16, 16]];
@@ -133,23 +155,35 @@ const SlotMachine = ({ className = "" }: any) => {
   const getRandomEntryFromArray = (array) =>
     array[Math.floor(Math.random() * array.length)];
 
+  const generateRandomResultFromTemplate = (template: Array<number>) => {
+    
+    const templateNonZeroes = template.filter(spinItem => spinItem !== 0)
+
+    if (templateNonZeroes.length > 0) {
+      return template.map(spinItem => spinItem === 0 ? getNumberInRangeExcept([templateNonZeroes[0]]) : spinItem)
+    }
+    
+    // For [0, 0, 0, 0, 0] return anything for all spinners except the middle one. Make sure this isn't a rofl to avoid a line of 3.
+    return template.map((spinItem, index) => index == 2 ? getNumberInRangeExcept([1,5,9,11,14,16]) : getNumberInRangeExcept([]))
+  }
+
   const getRandomSpinResultForPayout = (spinOutcome: number) => {
     console.log(spinOutcome)
     switch (+spinOutcome) {
       case 0:
-        return getRandomEntryFromArray(payout0Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout0Results));
       case 1:
-        return getRandomEntryFromArray(payout1Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout1Results));
       case 2:
-        return getRandomEntryFromArray(payout2Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout2Results));
       case 5:
-        return getRandomEntryFromArray(payout5Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout5Results));
       case 25:
-        return getRandomEntryFromArray(payout25Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout25Results));
       case 100:
-        return getRandomEntryFromArray(payout100Results);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout100Results));
       default:
-        return getRandomEntryFromArray(payoutJackpotResults);
+        return generateRandomResultFromTemplate(getRandomEntryFromArray(payoutJackpotResults));
     }
   };
 
