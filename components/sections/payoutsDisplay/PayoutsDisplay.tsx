@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { Button } from "components/ui";
+import React from "react";
 import { styled } from "theme";
-// import { OddsList } from "./OddsList";
 import {
   RoflCommon,
   RoflUncommon,
@@ -19,28 +17,12 @@ const Container = styled.div`
   max-width: 600px;
 `;
 
-const ButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-`;
-
 const StyledSpinItemsImgsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-const StyledCollateralsImg = styled.img`
-  width: 50px;
-`;
-
-const StyledHeading = styled.h4`
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
 
 const Payout = styled.div`
   display: flex;

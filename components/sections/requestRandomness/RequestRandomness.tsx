@@ -3,6 +3,7 @@ import { useMoralis } from "react-moralis";
 import { useAavegotchi } from "context/AavegotchiContext";
 import { useSlotsContractSend, useSlotsContractCall } from "actions/web3";
 import { updateLatestRequestId } from "context/AavegotchiContext";
+import { Button } from "components/ui";
 
 export const RequestRandomness = () => {
   const { user, web3, Moralis } = useMoralis();
@@ -149,19 +150,19 @@ export const RequestRandomness = () => {
   return (
     <>
       {!canExecuteSpins && (
-        <button
+        <Button
           onClick={requestRandomness}
           disabled={isRequestingRandomness || !canRequestRandomness}
         >
           {isRequestingRandomness
             ? "Getting randomness from Chainlink VRF. Please be patient..."
             : "Request random number"}
-        </button>
+        </Button>
       )}
       {canExecuteSpins && (
-        <button onClick={executeSpins} disabled={isCalculatingSpins}>
+        <Button onClick={executeSpins} disabled={isCalculatingSpins}>
           {isCalculatingSpins ? "Calculating spins" : "Calculate spins"}
-        </button>
+        </Button>
       )}
     </>
   );
