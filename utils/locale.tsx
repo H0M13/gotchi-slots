@@ -1,0 +1,29 @@
+const en_gb_labels = require('../locale/en-GB.json');
+const de_de_labels = require('../locale/de-DE.json');
+const fr_fr_labels = require('../locale/fr-FR.json');
+
+export const validLocale = (locale) => {
+	const valid = new Set(['en-gb', 'de-de', 'fr-fr']);
+	return locale && valid.has(locale.toLowerCase());
+}
+
+export const getLabels = (locale) => {
+	switch (locale.toLowerCase()) {
+		case 'en-gb':
+			return en_gb_labels;
+		case 'de-de':
+			return de_de_labels;
+		case 'fr-fr':
+			return fr_fr_labels;
+		default:
+			return en_gb_labels;
+	}
+}
+
+export interface intlShape {
+	messages: {
+		projectTitle: string;
+		moralisError: string;
+		footer: string;
+	}
+}

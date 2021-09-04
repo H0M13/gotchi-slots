@@ -1,0 +1,27 @@
+.headerContainer {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2.4rem;
+}
+
+.headerMiddle {
+  display: inline-flex;
+  height: 100%;
+  width: 100px;
+  flex-grow: 1;
+  color: white;
+  font-size: 4em;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.localePicker button {
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.3);
+}

@@ -12,10 +12,10 @@ export const theme = {
   colors: {
     primary: '#FA34F3',
     primaryAccent: '#F2B202',
-    secondary: '#6D18f8',
-    secondaryAccent: '#250750',
-    dark0: '#12032E',
-    dark1: '#200449',
+    secondary: '#9d004f',
+    secondaryAccent: '#8e1438',
+    dark0: '#bb1a49',
+    dark1: '#8e1438',
     dark2: '#250750',
     light0: '#FFFFFF',
     light1: '#F2F2F2',
@@ -33,7 +33,7 @@ export const theme = {
   },
 
   font: {
-    primary: "helvetica, sans-serif",
+    primary: "'VT323', monospace",
     secondary: "helvetica, sane-serif",
     xl: {
       size: '6rem',

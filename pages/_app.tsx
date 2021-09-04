@@ -1,45 +1,39 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from 'theme/globalStyles'
-import { Modal } from 'components/ui'
 import AavegotchiProvider from "context/AavegotchiContext"
 import Reset from 'theme/reset'
 import { theme } from 'theme'
-import { MoralisProvider } from "react-moralis";
+import { IntlProvider } from 'react-intl';
+import { getLabels, validLocale, intlShape } from '../utils/locale';
+import { useAavegotchi } from "../context/AavegotchiContext";
+import App from './App'
 
-const App = ({ Component, pageProps }) => {
-  if (!process.env.MORALIS_APPLICATION_ID || !process.env.MORALIS_SERVER_ID) {
-    return (
+const AppWrapper = ({ Component, pageProps }) => {
+
+  const {
+    state: { locale },
+    dispatch,
+  } = useAavegotchi();
+
+  return (
+    <IntlProvider messages={getLabels(locale)} locale={locale} defaultLocale="en-GB">
       <ThemeProvider theme={theme}>
         <Reset />
         <GlobalStyle />
-        <Modal>
-          <h3>Moralis App_ID and Server_ID has not been set:</h3>
-          <p>
-            Follow the steps on the <a href="https://docs.moralis.io/getting-started/quick-start" target="_blank">Moralis documentation</a> to create a new Moralis project.
-            Then find your application's app id and server id and paste them in a root <b>.env</b> file for both <b>.env.development</b> and <b>.env.production</b> like so:
-          </p>
-          <pre>
-            <code>
-              MORALIS_APPLICATION_ID='[APP_ID]'<br/>
-              MORALIS_SERVER_ID='[SERVER_ID]'
-            </code>
-          </pre>
-        </Modal>
+        <App Component={Component} pageProps={pageProps} />
       </ThemeProvider>
-    )
-  }
-  return (
-    <MoralisProvider appId={process.env.MORALIS_APPLICATION_ID || ""} serverUrl={process.env.MORALIS_SERVER_ID || ""}>
-      <AavegotchiProvider>
-        <ThemeProvider theme={theme}>
-          <Reset />
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AavegotchiProvider>
-    </MoralisProvider>
+    </IntlProvider>
   );
 }
 
-export default App;
+const AavegotchiProviderWrapper = ({ Component, pageProps }) => {
+  return (
+    <AavegotchiProvider>
+      <AppWrapper  Component={Component} pageProps={pageProps} />
+    </AavegotchiProvider>
+  );
+}
+
+export default AavegotchiProviderWrapper;
+

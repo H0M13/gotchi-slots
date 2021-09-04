@@ -17,6 +17,10 @@ export type Action =
       error: State["error"];
     }
   | {
+      type: "SET_LOCALE";
+      locale: State["locale"];
+    }
+  | {
       type: "SET_NETWORK_ID";
       networkId: State["networkId"];
     }
@@ -60,6 +64,12 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         loading: false,
         error: action.error,
+      };
+    }
+    case "SET_LOCALE": {
+      return {
+        ...state,
+        locale: action.locale,
       };
     }
     case "SET_NETWORK_ID": {

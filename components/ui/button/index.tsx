@@ -54,8 +54,8 @@ const StyledButton = styled.button<{ small?: boolean }>`
   &:active {
     border-bottom: none;
     border-right: none;
-    border-top: ${({ theme, small}) => small ? `2px solid ${theme.colors.secondaryAccent}` : `4.5px solid ${theme.colors.secondaryAccent}`};
-    border-left: ${({ theme, small }) => small ? `2px solid ${theme.colors.secondaryAccent}` : `4.5px solid ${theme.colors.secondaryAccent}`};
+    // border-top: ${({ theme, small}) => small ? `2px solid ${theme.colors.secondaryAccent}` : `4.5px solid ${theme.colors.secondaryAccent}`};
+    // border-left: ${({ theme, small }) => small ? `2px solid ${theme.colors.secondaryAccent}` : `4.5px solid ${theme.colors.secondaryAccent}`};
   }
 `
 

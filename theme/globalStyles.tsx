@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components'
 import { theme } from "theme"
 
 const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
   html {
     font-size: 10px;
     min-height: 100vh;
@@ -9,7 +11,13 @@ const GlobalStyle = createGlobalStyle<{ theme: typeof theme }>`
 
   body {
     font-family: ${({theme}) => theme.font.primary};
-    background: ${({theme}) => `linear-gradient(155deg, ${theme.colors.dark0} 0%, ${theme.colors.dark1} 40%, ${theme.colors.dark1} 50%, ${theme.colors.dark0} 100%)`};
+
+    background-image: url('./diamond_upholstery.png'),
+    ${({theme}) => `linear-gradient(155deg, ${theme.colors.dark0} 0%, ${theme.colors.dark1} 40%, ${theme.colors.dark1} 50%, ${theme.colors.dark0} 100%)`};
+    background-size: 10% auto, cover;
+    background-repeat: repeat;
+    background-blend-mode: multiply;
+
     height: 100%;
   }
 

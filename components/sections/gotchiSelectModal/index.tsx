@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GotchiSVG, Modal } from "components/ui";
+import { GotchiSVG, Modal } from "components/UI";
 import { useAavegotchi } from "context/AavegotchiContext";
 import * as Styled from "./styles";
 

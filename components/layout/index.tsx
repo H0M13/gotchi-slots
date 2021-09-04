@@ -1,28 +1,87 @@
-import { styled } from 'theme';
+import React, { useEffect } from 'react'
+import { updateNetworkId, useAavegotchi, updateAavegotchis } from 'context/AavegotchiContext'
+import { useMoralis } from 'react-moralis'
+import { ErrorModal } from 'components/UI'
+import Head from 'next/head'
 
-export const Container = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  padding: 3.6rem 1.6rem;
+import Footer from '../Footer/Footer'
+import Header from '../Header/Header'
+import Spinner from '../Spinner/Spinner'
 
-  @media ${({ theme }) => theme.mediaQueries.phone} {
-    max-width: ${({ theme }) => `${theme.grid.container.maxWidth.xs}px`};
+import styles from './layout.module.scss';
+
+interface Props {
+  metadetails?: {
+    title?: string;
   }
+}
 
-  @media ${({ theme }) => theme.mediaQueries.tablet} {
-    max-width: ${({ theme }) => `${theme.grid.container.maxWidth.sm}px`};
-  }
+export const Layout = ({metadetails}: Props) => {
+  const { web3, isWeb3Enabled, web3EnableError, enableWeb3, isAuthenticated, user, Moralis, logout  } = useMoralis();
+  const { state: {error} , dispatch } = useAavegotchi();
 
-  @media ${({ theme }) => theme.mediaQueries.laptop} {
-    padding: 6.4rem 3.2rem;
-    max-width: ${({ theme }) => `${theme.grid.container.maxWidth.md}px`};
-  }
+  const handleCloseErrorModal = () => {
+    dispatch({
+      type: "SET_ERROR",
+      error: undefined,
+    })
+  };
 
-  @media ${({ theme }) => theme.mediaQueries.laptopL} {
-    max-width: ${({ theme }) => `${theme.grid.container.maxWidth.lg}px`};
-  }
+  // Update user aavegotchis
+  useEffect(() => {
+    if (isAuthenticated && isWeb3Enabled && user) {
+      updateAavegotchis(dispatch, user.attributes.accounts[0]);
+    }
+  }, [isWeb3Enabled, isAuthenticated, user]);
 
-  @media ${({ theme }) => theme.mediaQueries.desktop} {
-    max-width: ${({ theme }) => `${theme.grid.container.maxWidth.xl}px`};
-  }
-`
+  // Update network
+  useEffect(() => {
+    if (isWeb3Enabled) {
+      updateNetworkId(dispatch, web3);
+    } else {
+      enableWeb3();
+    }
+  }, [isWeb3Enabled])
+
+  // Listeners
+  useEffect(() => {
+    const accountListener = Moralis.Web3.onAccountsChanged((accounts) => {
+      if (!user || accounts[0] !== user.attributes.accounts[0]) {
+        logout();
+      }
+    })
+
+    const chainListener = Moralis.Web3.onChainChanged(() => {
+      if (isWeb3Enabled) {
+        updateNetworkId(dispatch, web3);
+      }
+    })
+
+    // Unsubscribe from listeners
+    return () => {
+      accountListener();
+      chainListener();
+    };
+  }, [])
+
+  return (
+    <>
+      <Head>
+        <title>Gotchi Slots</title>
+      </Head>
+
+      {web3EnableError && <ErrorModal error={web3EnableError} />}
+      {error && <ErrorModal error={error} onHandleClose={handleCloseErrorModal} />}
+
+      <Header />
+
+      <div className={styles.mainContainer}>
+        <Spinner />
+
+      </div>
+
+      <Footer />
+
+    </>
+  )
+}

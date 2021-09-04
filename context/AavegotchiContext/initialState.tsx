@@ -6,9 +6,11 @@ export interface State {
   loading: boolean;
   error?: Error;
   networkId?: number;
+  locale?: string;
 }
 
 export const initialState: State = {
   loading: false,
   selectedAavegotchiIndex: 0,
+  locale: 'en-GB',
 }
