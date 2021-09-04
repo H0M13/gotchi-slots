@@ -18,19 +18,52 @@ const ButtonsContainer = styled.div`
   width: 100%;
 `;
 
-export const OddsDisplay = ({ className = ""}: any) => {
+const StyledCollateralsImgsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const StyledCollateralsImg = styled.img`
+  width: 50px;
+`;
+
+export const OddsDisplay = ({ className = "" }: any) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   const renderCollaterals = () => {
     switch (currentTab) {
       case 0:
-        return <span>DAI, USDT, USDC, TUSD</span>;
+        return (
+          <StyledCollateralsImgsContainer>
+            <StyledCollateralsImg src={"assets/collaterals/dai.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/usdt.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/tusd.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/usdc.svg"} />
+          </StyledCollateralsImgsContainer>
+        );
       case 1:
-        return <span>ETH, BTC</span>;
+        return (
+          <StyledCollateralsImgsContainer>
+            <StyledCollateralsImg src={"assets/collaterals/eth.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/btc.svg"} />
+          </StyledCollateralsImgsContainer>
+        );
       case 2:
-        return <span>MATIC, UNI</span>;
+        return (
+          <StyledCollateralsImgsContainer>
+            <StyledCollateralsImg src={"assets/collaterals/matic.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/uni.svg"} />
+          </StyledCollateralsImgsContainer>
+        );
       case 3:
-        return <span>LINK, YFI, AAVE</span>;
+        return (
+          <StyledCollateralsImgsContainer>
+            <StyledCollateralsImg src={"assets/collaterals/link.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/yfi.svg"} />
+            <StyledCollateralsImg src={"assets/collaterals/aave.svg"} />
+          </StyledCollateralsImgsContainer>
+        );
     }
   };
 

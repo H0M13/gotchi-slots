@@ -29,9 +29,12 @@ import {
   FakeTokenBalance,
   AddFakeFunds,
   RequestRandomness,
+  PayoutsDisplay,
   OddsDisplay,
   JackpotBalance,
 } from "components/sections";
+import { Tabs, Tab, TabList, TabPanel } from "react-tabs"
+import 'react-tabs/style/react-tabs.css';
 
 const Grid = styled.section`
   display: grid;
@@ -82,7 +85,7 @@ const MainGrid = styled.div`
   grid-template-areas:
     "jackpot handle ."
     "spinner handle gotchi"
-    "odds odds balance";
+    "oddsAndPayouts oddsAndPayouts balance";
 `;
 
 const StyledSlotMachine = styled(SlotMachine)`
@@ -104,12 +107,17 @@ const StyledGotchiContainer = styled(GotchiContainer)`
   grid-area: gotchi;
 `;
 
-const StyledOdds = styled(OddsDisplay)`
-  grid-area: odds;
+const StyledOddsPayoutsContainer = styled.div`
+  grid-area: oddsAndPayouts;
+  padding: 40px;
 `;
 
 const StyledBalance = styled(FakeTokenBalance)`
   grid-area: balance;
+`;
+
+const StyledTabPanel = styled(TabPanel)`
+  min-width: 600px;
 `;
 
 const Home = () => {
@@ -132,7 +140,20 @@ const Home = () => {
           </StyledGotchiContainer>
         )}
         <StyledBalance />
-        <StyledOdds />
+        <StyledOddsPayoutsContainer>
+        <Tabs>
+    <TabList>
+      <Tab>Payouts</Tab>
+      <Tab>Odds</Tab>
+    </TabList>
+    <StyledTabPanel>
+      <PayoutsDisplay />
+    </StyledTabPanel>
+    <StyledTabPanel>
+      <OddsDisplay />
+    </StyledTabPanel>
+  </Tabs>
+        </StyledOddsPayoutsContainer>
       </MainGrid>
       {/* <Panel>
         <Grid>
