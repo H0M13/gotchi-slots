@@ -93,13 +93,6 @@ const StyledJackpot = styled(JackpotBalance)`
   grid-area: jackpot;
 `;
 
-const StyledHandle = styled.div`
-  grid-area: handle;
-  background-color: green;
-  width: 80px;
-  height: 100%;
-`;
-
 const StyledGotchiContainer = styled(GotchiContainer)`
   grid-area: gotchi;
 `;
@@ -122,7 +115,6 @@ const Home = () => {
       <MainGrid>
         <StyledJackpot />
         <StyledSlotMachine />
-        <StyledHandle />
         {usersAavegotchis && (
           <StyledGotchiContainer>
             <GotchiSVG
