@@ -6,26 +6,6 @@ import { GotchiSVG } from "components/ui";
 import SlotMachine from "../components/sections/Spinner/SlotMachine";
 import { useAavegotchi } from "context/AavegotchiContext";
 import {
-  RoflCommon,
-  RoflUncommon,
-  RoflRare,
-  RoflLegendary,
-  RoflMythical,
-  RoflGodlike,
-  Coconut,
-  Diamond,
-  EthCoin,
-  Fireball,
-  GhstToken,
-  Kinship,
-  KinshipGreater,
-  Xp,
-  XpGreater,
-  Martini,
-  Milkshake,
-  Sushi,
-} from "components/ui/slotsIcons";
-import {
   FakeTokenBalance,
   AddFakeFunds,
   RequestRandomness,
@@ -33,8 +13,8 @@ import {
   OddsDisplay,
   JackpotBalance,
 } from "components/sections";
-import { Tabs, Tab, TabList, TabPanel } from "react-tabs"
-import 'react-tabs/style/react-tabs.css';
+import { Tabs, Tab, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const Grid = styled.section`
   display: grid;
@@ -105,40 +85,47 @@ const StyledOddsPayoutsContainer = styled.div`
   padding: 40px;
 `;
 
-const StyledBalance = styled(FakeTokenBalance)`
-  grid-area: balance;
-  align-self: baseline;
-`;
-
 const StyledTabPanel = styled(TabPanel)`
   min-width: 600px;
 `;
 
 const Name = styled.h1`
-font-style: italic;
-font-size: 8vw;
-background-color: #04B7BC;
-color: ${({ theme }) => theme.colors.primary};
-display: block;
-box-sizing: border-box;
-margin-bottom: 0;
-padding: .5em;
-&:nth-child(2) {
-  position: absolute;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: #04B7BC;
-  clip-path: inset(-1% -1% 50% -1%);
-}
-`
+  font-style: italic;
+  font-size: 8vw;
+  background-color: #04b7bc;
+  color: ${({ theme }) => theme.colors.primary};
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 0;
+  padding: 0.5em;
+  &:nth-child(2) {
+    position: absolute;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: #04b7bc;
+    clip-path: inset(-1% -1% 50% -1%);
+  }
+`;
 
 const NameBox = styled.div`
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 40px;
-  box-sizing: border-box;box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
-`
+  box-sizing: border-box;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
+`;
+
+const BalanceWrapper = styled.div`
+  grid-area: balance;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  align-self: baseline;
+`;
 
 const Home = () => {
   const {
@@ -148,8 +135,8 @@ const Home = () => {
   return (
     <Layout>
       <NameBox>
-      <Name>1 ARM BAANDIT</Name>
-      <Name>1 ARM BAANDIT</Name>
+        <Name>1 ARM BAANDIT</Name>
+        <Name>1 ARM BAANDIT</Name>
       </NameBox>
       <MainGrid>
         <StyledJackpot />
@@ -162,20 +149,24 @@ const Home = () => {
             />
           </StyledGotchiContainer>
         )}
-        <StyledBalance />
+        <BalanceWrapper>
+          <FakeTokenBalance />
+          <AddFakeFunds />
+          <RequestRandomness />
+        </BalanceWrapper>
         <StyledOddsPayoutsContainer>
-        <Tabs>
-          <TabList>
-            <Tab>Payouts</Tab>
-            <Tab>Odds</Tab>
-          </TabList>
-          <StyledTabPanel>
-            <PayoutsDisplay />
-          </StyledTabPanel>
-          <StyledTabPanel>
-            <OddsDisplay />
-          </StyledTabPanel>
-        </Tabs>
+          <Tabs>
+            <TabList>
+              <Tab>Payouts</Tab>
+              <Tab>Odds</Tab>
+            </TabList>
+            <StyledTabPanel>
+              <PayoutsDisplay />
+            </StyledTabPanel>
+            <StyledTabPanel>
+              <OddsDisplay />
+            </StyledTabPanel>
+          </Tabs>
         </StyledOddsPayoutsContainer>
       </MainGrid>
     </Layout>

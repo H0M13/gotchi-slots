@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useSlotsContractCall, useSlotsContractSend } from "actions/web3";
+import { Button } from "components/ui";
 
 export const AddFakeFunds = () => {
   const { user, web3 } = useMoralis();
@@ -40,7 +41,7 @@ export const AddFakeFunds = () => {
 
   return (
     <>
-      <button onClick={tryMintFakeChips}>{ hasClaimed ? "Demo GHST already claimed" : "Mint demo GHST"}</button>
+      <Button onClick={tryMintFakeChips}>{ hasClaimed ? "Demo GHST already claimed" : "Mint demo GHST"}</Button>
     </>
   );
 };
