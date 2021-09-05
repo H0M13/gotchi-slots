@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useAavegotchi, updateTokensWonThisSession } from "context/AavegotchiContext";
+import {
+  useAavegotchi,
+  updateTokensWonThisSession,
+} from "context/AavegotchiContext";
 import { useSlotsContractCall } from "actions/web3";
 import styles from "./SlotMachine.module.scss";
 import { useMoralis } from "react-moralis";
+import { styled } from "theme";
 
 const RepeatButton = ({ onClick }) => (
   <button
@@ -14,7 +18,7 @@ const RepeatButton = ({ onClick }) => (
 
 export interface SpinnerProps {
   id: number;
-  setSpinning : Function;
+  setSpinning: Function;
   isLast: boolean;
 }
 
@@ -39,7 +43,7 @@ const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
-const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
+const Spinner = ({ id, setSpinning, isLast }: SpinnerProps) => {
   const iconHeight = 100;
   const [position, setPosition] = useState(100);
   const [timeRemaining, setTimeRemaining] = useState(0);
@@ -58,13 +62,13 @@ const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
   const startSpin = (event) => {
     const spinTime = calculateTime(event.detail);
     setTimeRemaining(spinTime);
-  }
+  };
 
-  const tick = () => {    
-    if (timeRemaining === 0) { 
+  const tick = () => {
+    if (timeRemaining === 0) {
       // if (isLast) {
       //   console.log("set spinning false")
-      //   setSpinning(false); 
+      //   setSpinning(false);
       // }
     } else {
       setPosition(position - speed);
@@ -79,16 +83,19 @@ const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
     };
   }, []);
 
-  useInterval(() => {
-    tick();
-  }, timeRemaining > 0 ? 100 : null);
+  useInterval(
+    () => {
+      tick();
+    },
+    timeRemaining > 0 ? 100 : null
+  );
 
   useEffect(() => {
     if (timeRemaining === 0 && isLast) {
-      console.log("set spinning false")
+      console.log("set spinning false");
       setSpinning(false);
     }
-  }, [timeRemaining, isLast])
+  }, [timeRemaining, isLast]);
 
   return (
     <div
@@ -99,7 +106,6 @@ const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
 };
 
 const SlotMachine = ({ className = "" }: any) => {
-
   const getNumberInRangeExcept = (except: Array<number>) => {
     const result = getRandomInt(1, 18);
 
@@ -108,17 +114,15 @@ const SlotMachine = ({ className = "" }: any) => {
     }
 
     return getNumberInRangeExcept(except);
-  }
+  };
 
   const getRandomInt = (min: number, max: number) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  };
 
-  const payout0Results = [
-    [0, 0, 0, 0, 0]
-  ];
+  const payout0Results = [[0, 0, 0, 0, 0]];
 
   const payout1Results = [
     [1, 1, 1, 0, 0],
@@ -129,13 +133,13 @@ const SlotMachine = ({ className = "" }: any) => {
   const payout2Results = [
     [5, 5, 5, 0, 0],
     [0, 5, 5, 5, 0],
-    [0, 0, 5, 5, 5]
+    [0, 0, 5, 5, 5],
   ];
 
   const payout5Results = [
     [9, 9, 9, 0, 0],
     [0, 9, 9, 9, 0],
-    [0, 0, 9, 9, 9]
+    [0, 0, 9, 9, 9],
   ];
 
   const payout25Results = [
@@ -145,7 +149,7 @@ const SlotMachine = ({ className = "" }: any) => {
     [0, 0, 14, 14, 14],
     [11, 11, 11, 0, 0],
     [0, 11, 11, 11, 0],
-    [0, 0, 11, 11, 11]
+    [0, 0, 11, 11, 11],
   ];
 
   const payout100Results = [
@@ -163,34 +167,55 @@ const SlotMachine = ({ className = "" }: any) => {
     array[Math.floor(Math.random() * array.length)];
 
   const generateRandomResultFromTemplate = (template: Array<number>) => {
-    
-    const templateNonZeroes = template.filter(spinItem => spinItem !== 0)
+    const templateNonZeroes = template.filter((spinItem) => spinItem !== 0);
 
     if (templateNonZeroes.length > 0) {
-      return template.map(spinItem => spinItem === 0 ? getNumberInRangeExcept([templateNonZeroes[0]]) : spinItem)
+      return template.map((spinItem) =>
+        spinItem === 0
+          ? getNumberInRangeExcept([templateNonZeroes[0]])
+          : spinItem
+      );
     }
-    
+
     // For [0, 0, 0, 0, 0] return anything for all spinners except the middle one. Make sure this isn't a rofl to avoid a line of 3.
-    return template.map((spinItem, index) => index == 2 ? getNumberInRangeExcept([1,5,9,11,14,16]) : getNumberInRangeExcept([]))
-  }
+    return template.map((spinItem, index) =>
+      index == 2
+        ? getNumberInRangeExcept([1, 5, 9, 11, 14, 16])
+        : getNumberInRangeExcept([])
+    );
+  };
 
   const getRandomSpinResultForPayout = (spinOutcome: number) => {
-    console.log(spinOutcome)
+    console.log(spinOutcome);
     switch (+spinOutcome) {
       case 0:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout0Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout0Results)
+        );
       case 1:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout1Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout1Results)
+        );
       case 2:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout2Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout2Results)
+        );
       case 5:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout5Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout5Results)
+        );
       case 25:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout25Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout25Results)
+        );
       case 100:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payout100Results));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payout100Results)
+        );
       default:
-        return generateRandomResultFromTemplate(getRandomEntryFromArray(payoutJackpotResults));
+        return generateRandomResultFromTemplate(
+          getRandomEntryFromArray(payoutJackpotResults)
+        );
     }
   };
 
@@ -201,19 +226,19 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const setSpinningAndUpdateTokensWonThisSession = (value: boolean) => {
     if (!requestId) {
-      console.log("in setSpinningAndUpdateTokensWonThisSession but requestId is undefined")
+      console.log(
+        "in setSpinningAndUpdateTokensWonThisSession but requestId is undefined"
+      );
+    } else {
+      updateTokensWonThisSessionAsync(requestId);
+      setSpinning(value);
     }
-    else {
-      updateTokensWonThisSessionAsync(requestId)
-      setSpinning(value)
-    }
-  }
+  };
 
   const updateTokensWonThisSessionAsync = async (requestId: string) => {
     const spinOutcome = await getSpinOutcome(requestId, currentSpinIndex);
-    updateTokensWonThisSession(dispatch, parseFloat(spinOutcome))
-  }
-
+    updateTokensWonThisSession(dispatch, parseFloat(spinOutcome));
+  };
 
   const { web3 } = useMoralis();
 
@@ -266,49 +291,84 @@ const SlotMachine = ({ className = "" }: any) => {
   const [triggerDown, setTriggerDown] = useState(false);
   const [spinning, setSpinning] = useState(false);
 
-  console.log(spinning)
+  console.log(spinning);
 
   return (
     <div className={className}>
       <div className={styles.spinnerContainer}>
+        <div className={styles.background} />
+        <div className={styles.metalBarLower} />
+        <div className={styles.metalBarUpper} />
 
-        <div className={styles.background}/>
-        <div className={styles.metalBarLower}/>
-        <div className={styles.metalBarUpper}/>
-
-        <Spinner id={0} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
-        <Spinner id={1} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
-        <Spinner id={2} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
-        <Spinner id={3} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
-        <Spinner id={4} isLast={true} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
+        <Spinner
+          id={0}
+          isLast={false}
+          setSpinning={setSpinningAndUpdateTokensWonThisSession}
+        />
+        <Spinner
+          id={1}
+          isLast={false}
+          setSpinning={setSpinningAndUpdateTokensWonThisSession}
+        />
+        <Spinner
+          id={2}
+          isLast={false}
+          setSpinning={setSpinningAndUpdateTokensWonThisSession}
+        />
+        <Spinner
+          id={3}
+          isLast={false}
+          setSpinning={setSpinningAndUpdateTokensWonThisSession}
+        />
+        <Spinner
+          id={4}
+          isLast={true}
+          setSpinning={setSpinningAndUpdateTokensWonThisSession}
+        />
 
         <div className={styles.handleContainer}>
-
-          <button 
-            aria-label='Play again.' 
+          <button
+            aria-label="Play again."
             disabled={spinning}
             onMouseDown={() => setTriggerDown(true)}
             onMouseUp={() => {
-              setTriggerDown(false)
-              spin()
+              setTriggerDown(false);
+              spin();
             }}
           >
-            <div className={`${styles.slotTrigger} ${(triggerDown && !spinning) ? styles.pullDown : ''}`}>
+            <div
+              className={`${styles.slotTrigger} ${
+                triggerDown && !spinning ? styles.pullDown : ""
+              }`}
+            >
               <div className={styles.lever}>
-                  <div className={styles.pull}>
-                      <div className={styles.ball}></div>
-                      <div className={styles.stem}></div>
-                  </div>
-                  <div className={styles.cog1}></div>
-                  <div className={styles.cog2}></div>
+                <div className={styles.pull}>
+                  <div className={styles.ball}></div>
+                  <div className={styles.stem}></div>
+                </div>
+                <div className={styles.cog1}></div>
+                <div className={styles.cog2}></div>
               </div>
             </div>
-
           </button>
         </div>
       </div>
+      <SpinsRemainingContainer>
+        <SpinsRemaining>Spins remaining: {10 - currentSpinIndex}</SpinsRemaining>
+      </SpinsRemainingContainer>
     </div>
   );
 };
+
+const SpinsRemainingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+`
+
+const SpinsRemaining = styled.span`
+  font-size: 2rem;
+`;
 
 export default SlotMachine;
