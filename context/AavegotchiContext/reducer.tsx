@@ -86,7 +86,7 @@ export const reducer = (state: State, action: Action): State => {
       const { tokensWonThisSession, ...restState } = state
       return {
         ...restState,
-        tokensWonThisSession: tokensWonThisSession + action.extraTokens,
+        tokensWonThisSession: parseFloat(tokensWonThisSession.toString()) + parseFloat(action.extraTokens.toString()),
       };
     }
     case "UPDATE_AAVEGOTCHI_SVG": {

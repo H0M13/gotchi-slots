@@ -237,8 +237,8 @@ const SlotMachine = ({ className = "" }: any) => {
   };
 
   const updateTokensWonThisSessionAsync = async (requestId: string) => {
-    const spinOutcome = await getSpinOutcome(requestId, currentSpinIndex);
-    updateTokensWonThisSession(dispatch, parseFloat(spinOutcome));
+    console.log("currentSpinOutcome: " + currentSpinOutcome)
+    currentSpinOutcome && updateTokensWonThisSession(dispatch, currentSpinOutcome);
   };
 
   const { web3 } = useMoralis();
@@ -289,6 +289,8 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const [previousResult, setPreviousResult] = useState([1, 1, 1, 1, 1]);
 
+  const [currentSpinOutcome, setCurrentSpinOutcome] = useState<number>()
+
   const spin = async () => {
     if (!requestId) {
       console.log("Tried to spin but requestId is undefined");
@@ -303,6 +305,8 @@ const SlotMachine = ({ className = "" }: any) => {
     setSpinning(true);
 
     const spinOutcome = await getSpinOutcome(requestId, currentSpinIndex);
+
+    setCurrentSpinOutcome(spinOutcome)
 
     const spinResult = getRandomSpinResultForPayout(spinOutcome);
 
