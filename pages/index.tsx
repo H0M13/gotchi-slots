@@ -54,6 +54,16 @@ const Tree = styled.div`
   background-size: 300px;
   background-repeat: no-repeat;
 `;
+const Tree1 = styled(Tree)`
+  grid-area: tree1;
+`;
+const Tree2 = styled(Tree)`
+  grid-area: tree2;
+`;
+const Tree3 = styled(Tree)`
+  grid-area: tree3;
+`;
+
 
 const GotchiContainer = styled.div`
   width: 300px;
@@ -63,11 +73,11 @@ const MainGrid = styled.div`
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-columns: max-content 80px;
+  grid-template-columns: 300px max-content 80px 300px 300px;
   grid-template-areas:
-    "jackpot handle ."
-    "spinner handle gotchi"
-    "oddsAndPayouts oddsAndPayouts balance";
+    "tree1 jackpot handle . ."
+    ". spinner handle gotchi tree2"
+    "tree3 oddsAndPayouts oddsAndPayouts balance .";
 `;
 
 const StyledSlotMachine = styled(SlotMachine)`
@@ -177,6 +187,9 @@ const Home = () => {
           <AddFakeFunds />
           <RequestRandomness />
         </BalanceWrapper>
+        <Tree1 />
+        <Tree2 />
+        <Tree3 />
         <StyledOddsPayoutsContainer>
           <Tabs>
             <TabList>
