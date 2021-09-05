@@ -243,6 +243,39 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const { web3 } = useMoralis();
 
+  const checkRequestIdHasBeenProcessed = async () => {
+    if (requestId) {
+      const res = await useSlotsContractCall<boolean>(web3, {
+        name: "requestIdToProcessedBool",
+        parameters: [requestId],
+      });
+      console.log(res);
+      setRequestIdHasBeenProcessed(res);
+      return res;
+    }
+    setRequestIdHasBeenProcessed(false);
+    return false;
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkRequestIdHasBeenProcessed();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [requestId]);
+
+  const [requestIdHasBeenProcessed, setRequestIdHasBeenProcessed] = useState<boolean>(false)
+
+  useEffect(() => {
+    console.log("requestIdHasBeenProcessed: " + requestIdHasBeenProcessed)
+    if (!requestIdHasBeenProcessed) {
+      setCurrentSpinIndex(10)
+    }
+    else {
+      setCurrentSpinIndex(0)
+    }
+  }, [requestIdHasBeenProcessed])
+
   const [currentSpinIndex, setCurrentSpinIndex] = useState<number>(0);
 
   const getSpinOutcome = async (requestId: string, spinIndex: number) => {
@@ -255,11 +288,6 @@ const SlotMachine = ({ className = "" }: any) => {
   };
 
   const [previousResult, setPreviousResult] = useState([1, 1, 1, 1, 1]);
-
-  useEffect(() => {
-    console.log("requestId has changed. Setting currentSpinIndex to 0");
-    setCurrentSpinIndex(0);
-  }, [requestId]);
 
   const spin = async () => {
     if (!requestId) {
@@ -290,8 +318,6 @@ const SlotMachine = ({ className = "" }: any) => {
 
   const [triggerDown, setTriggerDown] = useState(false);
   const [spinning, setSpinning] = useState(false);
-
-  console.log(spinning);
 
   return (
     <div className={className}>

@@ -23,12 +23,10 @@ export const RequestRandomness = () => {
 
   const checkRequestIdHasRandomness = async () => {
     if (requestId) {
-      console.log(requestId);
       const res = await useSlotsContractCall<string>(web3, {
         name: "requestIdToRandomNumber",
         parameters: [requestId],
       });
-      console.log(res);
       setRequestIdHasRandomness(Boolean(res));
       return Boolean(res);
     }
@@ -38,12 +36,10 @@ export const RequestRandomness = () => {
 
   const checkRequestIdHasBeenProcessed = async () => {
     if (requestId) {
-      console.log(requestId);
       const res = await useSlotsContractCall<boolean>(web3, {
         name: "requestIdToProcessedBool",
         parameters: [requestId],
       });
-      console.log(res);
       setRequestIdHasBeenProcessed(res);
       if (res) {
         setIsRequestingRandomness(false);
@@ -102,7 +98,6 @@ export const RequestRandomness = () => {
   const executeSpins = async () => {
     const userAccount = user.attributes.accounts[0];
     if (userAccount && requestId) {
-      console.log("requestId: " + requestId);
       setIsCalculatingSpins(true);
       const res = await useSlotsContractSend<string>(
         web3,
@@ -112,7 +107,6 @@ export const RequestRandomness = () => {
         },
         userAccount
       );
-      console.log("res: " + JSON.stringify(res));
     } else {
       console.log("userAccount or requestId are undefined");
     }
@@ -133,18 +127,6 @@ export const RequestRandomness = () => {
   const [isRequestingRandomness, setIsRequestingRandomness] =
     useState<boolean>(false);
   const [isCalculatingSpins, setIsCalculatingSpins] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log("requestId: " + requestId);
-  }, [requestId]);
-
-  useEffect(() => {
-    console.log("requestIdHasRandomness: " + requestIdHasRandomness);
-  }, [requestIdHasRandomness]);
-
-  useEffect(() => {
-    console.log("requestIdHasBeenProcessed: " + requestIdHasBeenProcessed);
-  }, [requestIdHasBeenProcessed]);
 
   const canRequestRandomness = !requestId || requestIdHasBeenProcessed;
   const canExecuteSpins = requestIdHasRandomness && !requestIdHasBeenProcessed;
