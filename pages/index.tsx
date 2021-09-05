@@ -76,7 +76,7 @@ const MainGrid = styled.div`
   grid-template-columns: 300px max-content 80px 300px 300px;
   grid-template-areas:
     "tree1 jackpot handle . ."
-    ". spinner handle gotchi tree2"
+    "tree1 spinner handle gotchi tree2"
     "tree3 oddsAndPayouts oddsAndPayouts balance .";
 `;
 
