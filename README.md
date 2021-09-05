@@ -1,8 +1,11 @@
-## NextJS Moralis Aavegotchi
+## 1 Arm Baandit
 
-This is a starter template for Aavegotchi built with [Next.js](https://nextjs.org/learn) and [Moralis](https://docs.moralis.io/) buult to streamline the development of you Aavegotchi DApp.
+![image](https://user-images.githubusercontent.com/6655367/132122478-37f0d060-9edb-452f-a514-10b379b137cb.png)
 
-It is written primarily in Typescript and uses [styled components](https://styled-components.com/) for styling.
+
+This is a slots-inspired minigame for Aavegotchi built as part of the first Game Jaam.
+
+Check out live demo @ https://gotchi-slots-r9mxieta7-h0m13.vercel.app/
 
 ## Dev dependencies needed
 
