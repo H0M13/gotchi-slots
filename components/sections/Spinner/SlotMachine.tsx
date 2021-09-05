@@ -232,6 +232,7 @@ const SlotMachine = ({ className = "" }: any) => {
     } else {
       updateTokensWonThisSessionAsync(requestId);
       setSpinning(value);
+      setCurrentSpinIndex(currentSpinIndex + 1);
     }
   };
 
@@ -284,7 +285,6 @@ const SlotMachine = ({ className = "" }: any) => {
       },
     });
     window.dispatchEvent(event);
-    setCurrentSpinIndex(currentSpinIndex + 1);
     setPreviousResult(spinResult);
   };
 
