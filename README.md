@@ -5,7 +5,30 @@
 
 This is a slots-inspired minigame for Aavegotchi built as part of the first Game Jaam.
 
-Check out live demo @ https://gotchi-slots-r9mxieta7-h0m13.vercel.app/
+## Submission details
+
+We've created an Aavegotchi-themed slots game which interacts with a smart contract on Polygon Mainnet and uses Chainlink VRF to fairly determine users' spins. 
+
+Gotchis can spin with different odds depending on their spirit force collateral type (while maintaining balance in total 99.5% payout across all types). See the 'Odds' tab on the site for more details.
+
+For the game jaam we decided it would be both safest and easiest to demo if we used 'demo GHST' balances rather than the real ERC-20. Each wallet can one-time 'mint' themselves 100 demo GHST to play with!
+
+There is a jackpot prize which grows every time someone plays the game (if they don't win it themselves!).
+
+**Note** Chainlink VRF can be very slow to respond lately, like *2 or 3 minutes* kind of slow! Please be patient with it :sweat_smile: 
+
+Video: 
+https://www.youtube.com/watch?v=Gr5f7ogSAPg
+
+Repos:
+https://github.com/H0M13/gotchi-slots-contracts
+https://github.com/H0M13/gotchi-slots
+
+Demo site:
+https://gotchi-slots-r9mxieta7-h0m13.vercel.app/
+
+Contract:
+https://polygonscan.com/address/0x44a8F7908ee49c5189846F752FB78044cAdCD800
 
 ## Dev dependencies needed
 
