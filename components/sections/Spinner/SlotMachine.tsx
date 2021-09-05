@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useAavegotchi } from "context/AavegotchiContext";
+import { useAavegotchi, updateTokensWonThisSession } from "context/AavegotchiContext";
 import { useSlotsContractCall } from "actions/web3";
-
 import styles from "./SlotMachine.module.scss";
 import { useMoralis } from "react-moralis";
 
@@ -62,10 +61,11 @@ const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
   }
 
   const tick = () => {    
-    if (timeRemaining <= 0) { 
-      if (isLast) {
-        setSpinning(false); 
-      }
+    if (timeRemaining === 0) { 
+      // if (isLast) {
+      //   console.log("set spinning false")
+      //   setSpinning(false); 
+      // }
     } else {
       setPosition(position - speed);
       setTimeRemaining(timeRemaining - 100);
@@ -81,7 +81,14 @@ const Spinner = ({id, setSpinning, isLast} : SpinnerProps) => {
 
   useInterval(() => {
     tick();
-  }, 100);
+  }, timeRemaining > 0 ? 100 : null);
+
+  useEffect(() => {
+    if (timeRemaining === 0 && isLast) {
+      console.log("set spinning false")
+      setSpinning(false);
+    }
+  }, [timeRemaining, isLast])
 
   return (
     <div
@@ -192,6 +199,22 @@ const SlotMachine = ({ className = "" }: any) => {
     dispatch,
   } = useAavegotchi();
 
+  const setSpinningAndUpdateTokensWonThisSession = (value: boolean) => {
+    if (!requestId) {
+      console.log("in setSpinningAndUpdateTokensWonThisSession but requestId is undefined")
+    }
+    else {
+      updateTokensWonThisSessionAsync(requestId)
+      setSpinning(value)
+    }
+  }
+
+  const updateTokensWonThisSessionAsync = async (requestId: string) => {
+    const spinOutcome = await getSpinOutcome(requestId, currentSpinIndex);
+    updateTokensWonThisSession(dispatch, parseFloat(spinOutcome))
+  }
+
+
   const { web3 } = useMoralis();
 
   const [currentSpinIndex, setCurrentSpinIndex] = useState<number>(0);
@@ -243,6 +266,8 @@ const SlotMachine = ({ className = "" }: any) => {
   const [triggerDown, setTriggerDown] = useState(false);
   const [spinning, setSpinning] = useState(false);
 
+  console.log(spinning)
+
   return (
     <div className={className}>
       <div className={styles.spinnerContainer}>
@@ -251,16 +276,17 @@ const SlotMachine = ({ className = "" }: any) => {
         <div className={styles.metalBarLower}/>
         <div className={styles.metalBarUpper}/>
 
-        <Spinner id={0} isLast={false} setSpinning={setSpinning} />
-        <Spinner id={1} isLast={false} setSpinning={setSpinning} />
-        <Spinner id={2} isLast={false} setSpinning={setSpinning} />
-        <Spinner id={3} isLast={false} setSpinning={setSpinning} />
-        <Spinner id={4} isLast={true} setSpinning={setSpinning} />
+        <Spinner id={0} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
+        <Spinner id={1} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
+        <Spinner id={2} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
+        <Spinner id={3} isLast={false} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
+        <Spinner id={4} isLast={true} setSpinning={setSpinningAndUpdateTokensWonThisSession} />
 
         <div className={styles.handleContainer}>
 
           <button 
             aria-label='Play again.' 
+            disabled={spinning}
             onMouseDown={() => setTriggerDown(true)}
             onMouseUp={() => {
               setTriggerDown(false)

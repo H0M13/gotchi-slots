@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "components/sections/layout";
 import { styled } from "theme";
 import { Panel } from "components/ui";
@@ -131,8 +131,24 @@ const BalanceWrapper = styled.div`
 
 const Home = () => {
   const {
-    state: { usersAavegotchis, networkId, selectedAavegotchiIndex },
+    state: {
+      usersAavegotchis,
+      networkId,
+      selectedAavegotchiIndex,
+      tokensWonThisSession,
+    },
   } = useAavegotchi();
+
+  const [showGotchiExcited, setShowGotchiExcited] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (tokensWonThisSession > 0) {
+      setShowGotchiExcited(true);
+      setInterval(() => {
+        setShowGotchiExcited(false);
+      }, 3000);
+    }
+  }, [tokensWonThisSession]);
 
   return (
     <Layout>
@@ -147,7 +163,12 @@ const Home = () => {
           <StyledGotchiContainer>
             <GotchiSVG
               tokenId={usersAavegotchis[selectedAavegotchiIndex].id}
-              options={{ removeBg: true, animate: true }}
+              options={{
+                removeBg: true,
+                animate: true,
+                armsUp: showGotchiExcited,
+                eyes: showGotchiExcited ? "happy" : undefined,
+              }}
             />
           </StyledGotchiContainer>
         )}

@@ -48,6 +48,6 @@ export const GotchiSVG = ({ tokenId, options }: Props) => {
   }, [tokenId, usersAavegotchis, isWeb3Enabled, options])
 
   return (
-    <img src={svg ? convertInlineSVGToBlobURL(svg) : "/assets/gifs/loading.gif"} height="100%" width="100%" />
+    <img src={svg ? convertInlineSVGToBlobURL(svg) : "/assets/gifs/loading.gif"} height="300px" width="300px" />
   )
 }

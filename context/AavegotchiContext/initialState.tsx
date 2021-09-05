@@ -7,9 +7,11 @@ export interface State {
   error?: Error;
   networkId?: number;
   requestId?: string;
+  tokensWonThisSession: number;
 }
 
 export const initialState: State = {
   loading: false,
   selectedAavegotchiIndex: 0,
+  tokensWonThisSession: 0
 }

@@ -25,6 +25,10 @@ export type Action =
       requestId: State["requestId"];
     }
   | {
+      type: "SET_TOKENS_WON_THIS_SESSION";
+      extraTokens: State["tokensWonThisSession"];
+    }
+  | {
       type: "END_ASYNC";
     }
   | {
@@ -78,19 +82,28 @@ export const reducer = (state: State, action: Action): State => {
         requestId: action.requestId,
       };
     }
+    case "SET_TOKENS_WON_THIS_SESSION": {
+      const { tokensWonThisSession, ...restState } = state
+      return {
+        ...restState,
+        tokensWonThisSession: tokensWonThisSession + action.extraTokens,
+      };
+    }
     case "UPDATE_AAVEGOTCHI_SVG": {
-      if (!state.usersAavegotchis) throw "No Aavegotchis to update."
+      if (!state.usersAavegotchis) throw "No Aavegotchis to update.";
       const copyGotchiState = [...state.usersAavegotchis];
-      const updatedGotchiIndex = copyGotchiState.findIndex(gotchi => gotchi.id === action.tokenId);
+      const updatedGotchiIndex = copyGotchiState.findIndex(
+        (gotchi) => gotchi.id === action.tokenId
+      );
 
       if (updatedGotchiIndex >= 0) {
         copyGotchiState[updatedGotchiIndex].svg = action.svg;
         return {
           ...state,
-          usersAavegotchis: copyGotchiState
-        }
+          usersAavegotchis: copyGotchiState,
+        };
       } else {
-        throw "Selected gotchi doesn't exist in state."
+        throw "Selected gotchi doesn't exist in state.";
       }
     }
     default:

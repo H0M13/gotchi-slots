@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { useAavegotchi } from "context/AavegotchiContext";
+import { useAavegotchi, updateTokensWonThisSession } from "context/AavegotchiContext";
 import { useSlotsContractSend, useSlotsContractCall } from "actions/web3";
 import { updateLatestRequestId } from "context/AavegotchiContext";
 import { Button } from "components/ui";
@@ -47,7 +47,7 @@ export const RequestRandomness = () => {
       setRequestIdHasBeenProcessed(res);
       if (res) {
         setIsRequestingRandomness(false);
-        setIsCalculatingSpins(true);
+        setIsCalculatingSpins(false);
       }
       return res;
     }
@@ -83,6 +83,8 @@ export const RequestRandomness = () => {
     } else {
       console.log("userAccount or gotchiIdToUse are undefined");
     }
+
+    updateTokensWonThisSession(dispatch, -10)
   };
 
   // const queryDbForRandomnessReceived = async () => {

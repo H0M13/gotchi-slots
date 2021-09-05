@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useSlotsContractCall } from "actions/web3";
 import { styled } from "theme" 
+import { useAavegotchi } from "context/AavegotchiContext";
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +19,12 @@ const Amount = styled.span`
 export const FakeTokenBalance = ({ className = ""}: any) => {
   const { user, web3 } = useMoralis();
 
+  const {
+    state: { tokensWonThisSession },
+  } = useAavegotchi();
+
   const [amount, setAmount] = useState<string>("0");
+  const [initialAmount, setInitialAmount] = useState<string>("0")
 
   const loadFakeTokensAmount = async () => {
     if (!user || !web3) return;
@@ -28,20 +34,24 @@ export const FakeTokenBalance = ({ className = ""}: any) => {
       parameters: [userAcount],
     });
     setAmount(res);
+    setInitialAmount(res);
   };
 
   useEffect(() => {
-    loadFakeTokensAmount();
-    const interval = setInterval(() => {
+    if (user && web3) {
       loadFakeTokensAmount();
-    }, 3000);
-    return () => clearInterval(interval);
+    }
   }, [user, web3]);
+
+  useEffect(() => {
+    console.log(tokensWonThisSession)
+    setAmount((parseFloat(initialAmount) + tokensWonThisSession).toString())
+  }, [tokensWonThisSession])
 
   return (
     <Container className={className}>
       <img src="/assets/gifs/ghst_doubleside.gif" width="80" />
-      <Amount>{web3.utils.fromWei(amount)}</Amount>
+      <Amount>{parseFloat((web3.utils.fromWei(amount))).toFixed(2)}</Amount>
     </Container>
   );
 };

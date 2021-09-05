@@ -52,6 +52,14 @@ const updateLatestRequestId = async (dispatch: React.Dispatch<Action>, requestId
   }
 };
 
+const updateTokensWonThisSession = async (dispatch: React.Dispatch<Action>, extraTokens: number) => {
+  try {
+    dispatch({ type: "SET_TOKENS_WON_THIS_SESSION", extraTokens });
+  } catch (error) {
+    dispatch({ type: "SET_ERROR", error });
+  }
+};
+
 const AavegotchiContextProvider = ({
   children,
 }: {
@@ -69,4 +77,4 @@ const AavegotchiContextProvider = ({
 const useAavegotchi = () => useContext(AavegotchiContext);
 
 export default AavegotchiContextProvider;
-export { useAavegotchi, updateNetworkId, updateAavegotchis, updateLatestRequestId };
+export { useAavegotchi, updateNetworkId, updateAavegotchis, updateLatestRequestId, updateTokensWonThisSession };
