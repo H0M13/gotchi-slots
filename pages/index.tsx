@@ -142,7 +142,7 @@ const Home = () => {
   const [showGotchiExcited, setShowGotchiExcited] = useState<boolean>(false);
 
   useEffect(() => {
-    if (tokensWonThisSession > 0) {
+    if (tokensWonThisSession !== 0) {
       setShowGotchiExcited(true);
       setInterval(() => {
         setShowGotchiExcited(false);

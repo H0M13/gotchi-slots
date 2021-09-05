@@ -45,7 +45,8 @@ export const FakeTokenBalance = ({ className = ""}: any) => {
 
   useEffect(() => {
     console.log(tokensWonThisSession)
-    setAmount((parseFloat(initialAmount) + tokensWonThisSession).toString())
+    console.log("amount: " + (parseFloat(web3.utils.fromWei(initialAmount)) + tokensWonThisSession).toString())
+    setAmount(web3.utils.toWei((parseFloat(web3.utils.fromWei(initialAmount)) + tokensWonThisSession).toString()))
   }, [tokensWonThisSession])
 
   return (
