@@ -34,6 +34,14 @@ const StyledHeading = styled.h4`
     margin-bottom: 10px;
 `
 
+const Lore = styled.span`
+    text-align: center;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.colors.secondary};
+    padding: 20px;
+`
+
 export const OddsDisplay = ({ className = "" }: any) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
@@ -72,6 +80,28 @@ export const OddsDisplay = ({ className = "" }: any) => {
         );
     }
   };
+
+
+  const renderLore = () => {
+    switch (currentTab) {
+        case 0:
+          return (
+            <Lore>Stablecoin spirit force empowers your gotchi with safer odds. You have a greater chance of winning every spin but a lower chance of winning higher prizes.</Lore>
+          );
+        case 1:
+          return (
+            <Lore>BTC or ETH spirit forces give your gotchi partial degen powers. You have slightly higher odds of winning the top prizes but also slightly higher odds of spinning a loss.</Lore>
+          );
+        case 2:
+          return (
+            <Lore>MATIC or UNI spirit force gives your gotchi medium degen powers. You have higher odds of winning the top prizes but also higher odds of spinning a loss.</Lore>
+          );
+        case 3:
+          return (
+            <Lore>LINK, YFI and AAVE spirit forces give your gotchi full degen powers. You have the highest odds of winning the top prizes but also the highest odds of spinning a loss.</Lore>
+          );
+      }
+  }
 
   const renderOdds = () => {
     switch (currentTab) {
@@ -139,6 +169,7 @@ export const OddsDisplay = ({ className = "" }: any) => {
         <Button onClick={handleRightClick}>{">>"}</Button>
       </ButtonsContainer>
       {renderCollaterals()}
+      {renderLore()}
       {renderOdds()}
       <StyledHeading>Your gotchi's collateral type gives you different odds in the smart contract!</StyledHeading>
       <StyledHeading>Check this table to see the odds you're playing with.</StyledHeading>
